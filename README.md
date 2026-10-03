@@ -1,6 +1,11 @@
 #  AraboScripto — Arabic Handwritten Character Recognition
 
-> **Deep learning web application** — a CNN-powered system that recognizes handwritten Arabic characters from uploaded images, achieving 94.7% classification accuracy across 28 character classes.
+## Published-source status
+
+The implementation uses **TensorFlow/Keras**, not PyTorch. The opening accuracy figure below is reported training accuracy, not verified held-out test accuracy. The backend expects a trained `.keras` model that is not included in this checkout; set `ARABIC_CNN_MODEL_PATH` to your exported model. The notebook also adds a misclassified test image to training data and reevaluates on that test set. Metrics from that revised run are contaminated and should not be presented as untouched-test accuracy. Preserve the notebook as a historical record and rerun with a fresh holdout before publishing a test claim. The React source is present, but its `package.json` and lockfile are missing, so the frontend cannot yet be reproduced with `npm install`. Restore the original dependency manifests before launching it.
+
+
+> **Deep learning web application** — a CNN-powered system that recognizes handwritten Arabic characters from uploaded images, reporting 94.7% training accuracy across 28 character classes.
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue?style=flat-square&logo=python)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.0-FF6F00?style=flat-square&logo=tensorflow)
@@ -179,6 +184,17 @@ Open **http://localhost:3000** in your browser.
 B.A. Computer Science & Data Science — The College of Wooster
 M.S. Artificial Intelligence — Northeastern University, Khoury College | Expected 2027
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=flat-square&logo=linkedin)](linkedin.com/in/siham-boumalak-11014b210)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/siham-boumalak/)
 [![GitHub](https://img.shields.io/badge/GitHub-boumalaksiham-181717?style=flat-square&logo=github)](https://github.com/boumalaksiham)
 [![Dataset](https://img.shields.io/badge/Dataset-Kaggle%20AHCD-20BEFF?style=flat-square&logo=kaggle)](https://www.kaggle.com/datasets/mloey1/ahcd1)
+
+## Backend environment configuration
+
+Export a trained model from the notebook, then set an absolute path before starting the backend:
+
+```bash
+export ARABIC_CNN_MODEL_PATH="/absolute/path/to/model4arabic.keras"
+python Backend/app.py
+```
+
+The model is not distributed in this checkout. Dependencies and the frontend manifests still need restoration; this command documents the model path rather than promising a complete setup. Debug mode is off by default; set `FLASK_DEBUG=1` only for local development.

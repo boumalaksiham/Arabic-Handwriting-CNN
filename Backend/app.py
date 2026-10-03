@@ -1,3 +1,5 @@
+import os
+from pathlib import Path
 from flask import Flask, request, jsonify  # Flask web framework
 from flask_cors import CORS  # Cross-Origin Resource Sharing
 from tensorflow.keras.models import load_model  # Load Keras model
@@ -9,7 +11,14 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for the app
 
 # Load the trained model
-model_path = 'C:/Users/bouma/Downloads/Intermediate_code/Models/model4arabic.keras'
+model_path = Path(os.environ.get(
+    "ARABIC_CNN_MODEL_PATH",
+    str(Path(__file__).resolve().parents[1] / "Models" / "model4arabic.keras"),
+))
+if not model_path.is_file():
+    raise FileNotFoundError(
+        "Export the trained Keras model and set ARABIC_CNN_MODEL_PATH to its location."
+    )
 model = load_model(model_path)
 
 # List of Arabic characters
@@ -47,4 +56,4 @@ def convert_image():
 
 # Run the Flask app
 if __name__ == '__main__':
-    app.run(debug=True)  # Run the app in debug mode
+    app.run(debug=os.environ.get("FLASK_DEBUG") == "1")  # Run the app in debug mode

@@ -2,6 +2,14 @@
 
 A TensorFlow/Keras CNN prototype for classifying images of **isolated Arabic handwritten characters into 28 classes**. The repository includes a training notebook, a Flask inference endpoint and React interface source. It is not a full-word or sentence transcription system.
 
+## Project question and deliverable
+
+How can a handwritten character image be converted into one of 28 Arabic character labels? This project connects a CNN training notebook to an image-upload interface and an inference endpoint.
+
+The key integration requirement is consistency: image orientation, grayscale conversion, 32 × 32 resizing, normalization, and class-index mapping must agree between the notebook and backend. A model can produce a confident prediction even when one of these conventions is wrong.
+
+**Start here:** inspect the [training notebook](Models/) for the classifier, then [Backend/app.py](Backend/app.py) for the preprocessing and response contract. The notebook is available to review; running the complete application also requires the missing artifacts listed below.
+
 ## Implementation
 
 The notebook builds a convolutional classifier with pooling, batch normalization, dropout and a softmax output. The Flask backend decodes an uploaded image as grayscale, resizes it to **32 × 32**, scales pixel values to 0–1 and maps the predicted class to a character label.

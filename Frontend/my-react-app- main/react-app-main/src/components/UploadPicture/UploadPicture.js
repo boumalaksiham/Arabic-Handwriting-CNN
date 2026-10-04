@@ -28,7 +28,7 @@ function UploadPicture() {
   const onConvertClick = () => {
     const formData = new FormData();  // Create a new FormData object
     formData.append('file', selectedFile);  // Append the selected file to the FormData object
-    axios.post('http://localhost:5000/convert', formData)  // Send a POST request to the server
+    axios.post(`${(process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/, '')}/convert`, formData)  // Send a POST request to the server
       .then(response => {
         setPredictedLetter(response.data.message);  // Set the predicted letter based on the response from the server
       })

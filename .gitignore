@@ -9,3 +9,6 @@ venv/
 .env.*
 !.env.example
 node_modules/
+
+build/
+Models/retrained/
